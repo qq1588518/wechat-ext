@@ -2,7 +2,6 @@ package io.github.xinyangpan.wechatext;
 
 import org.apache.catalina.filters.RequestDumperFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,10 +18,8 @@ import io.github.xinyangpan.wechatext.api.CoreApi;
 import io.github.xinyangpan.wechatext.api.MenuApi;
 import io.github.xinyangpan.wechatext.api.MessageApi;
 import io.github.xinyangpan.wechatext.api.TagApi;
-import io.github.xinyangpan.wechatext.core.WechatExtController;
 import io.github.xinyangpan.wechatext.core.WechatExtProperties;
 import io.github.xinyangpan.wechatext.core.WechatExtService;
-import io.github.xinyangpan.wechatext.core.listener.IncomeMessageListener;
 
 @EnableConfigurationProperties(WechatExtProperties.class)
 @Configuration
@@ -63,16 +60,9 @@ public class WechatExtAutoConfiguration {
 		return wechatExtService;
 	}
 
-	@Bean
-	@ConditionalOnBean(IncomeMessageListener.class)
-	@ConditionalOnMissingBean
-	public WechatExtController wechatExtController(IncomeMessageListener incomeMessageListener) {
-		WechatExtController wechatExtController = new WechatExtController();
-		wechatExtController.setIncomeMessageListener(incomeMessageListener);
-		wechatExtController.setWechatExtProperties(wechatExtProperties);
-		wechatExtController.setWechatExtService(wechatExtService());
-		return wechatExtController;
-	}
+	// -----------------------------
+	// ----- API
+	// -----------------------------
 
 	@Bean
 	@ConditionalOnMissingBean

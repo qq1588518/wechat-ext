@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.xinyangpan.wechatext.WechatExtAutoConfiguration
+io.github.xinyangpan.wechatext.WechatExtAutoConfiguration,\
+io.github.xinyangpan.wechatext.controller.ControllerAutoConfiguration
