@@ -4,18 +4,12 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.stereotype.Service;
 
 import com.google.common.base.Joiner;
 
 import okhttp3.HttpUrl;
 
-@Service
-@ConditionalOnMissingBean
 public class WechatExtService {
-	@Autowired
 	private WechatExtProperties wechatExtProperties;
 
 	public HttpUrl.Builder commonBuilder() {
@@ -32,6 +26,14 @@ public class WechatExtService {
 
 	public long now() {
 		return System.currentTimeMillis();
+	}
+
+	public WechatExtProperties getWechatExtProperties() {
+		return wechatExtProperties;
+	}
+
+	public void setWechatExtProperties(WechatExtProperties wechatExtProperties) {
+		this.wechatExtProperties = wechatExtProperties;
 	}
 
 }

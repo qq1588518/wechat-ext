@@ -1,8 +1,5 @@
 package io.github.xinyangpan.wechatext.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import io.github.xinyangpan.wechatext.core.WechatExtService;
@@ -10,14 +7,9 @@ import io.github.xinyangpan.wechatext.core.vo.json.ApiError;
 import io.github.xinyangpan.wechatext.core.vo.json.TemplateMessage;
 import okhttp3.HttpUrl;
 
-@Component
-@ConditionalOnMissingBean
 public class MessageApi {
-	@Autowired
 	private RestTemplate restTemplate;
-	@Autowired
 	private CoreApi coreApi;
-	@Autowired
 	private WechatExtService wechatExtService;
 	
 	public <T> ApiError sendTemplateMessage(TemplateMessage<T> templateMessage) {
@@ -30,4 +22,29 @@ public class MessageApi {
 		// 
 		return restTemplate.postForObject(url.toString(), templateMessage, ApiError.class).throwExceptionIfError();
 	}
+
+	public RestTemplate getRestTemplate() {
+		return restTemplate;
+	}
+
+	public void setRestTemplate(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+
+	public CoreApi getCoreApi() {
+		return coreApi;
+	}
+
+	public void setCoreApi(CoreApi coreApi) {
+		this.coreApi = coreApi;
+	}
+
+	public WechatExtService getWechatExtService() {
+		return wechatExtService;
+	}
+
+	public void setWechatExtService(WechatExtService wechatExtService) {
+		this.wechatExtService = wechatExtService;
+	}
+	
 }

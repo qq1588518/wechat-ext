@@ -1,9 +1,12 @@
 package io.github.xinyangpan.wechatext;
 
 import org.apache.catalina.filters.RequestDumperFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -12,8 +15,19 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.common.collect.Lists;
 
+import io.github.xinyangpan.wechatext.api.CoreApi;
+import io.github.xinyangpan.wechatext.api.MenuApi;
+import io.github.xinyangpan.wechatext.api.MessageApi;
+import io.github.xinyangpan.wechatext.api.TagApi;
+import io.github.xinyangpan.wechatext.core.WechatExtController;
+import io.github.xinyangpan.wechatext.core.WechatExtProperties;
+import io.github.xinyangpan.wechatext.core.WechatExtService;
+import io.github.xinyangpan.wechatext.core.listener.IncomeMessageListener;
+
 @Configuration
 public class WechatExtConfiguration {
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	@Bean
 	@ConditionalOnProperty("wechat.request-dump-enable")
@@ -38,6 +52,71 @@ public class WechatExtConfiguration {
 	@ConditionalOnMissingBean
 	public XmlMapper xmlMapper() {
 		return new XmlMapper();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public WechatExtProperties wechatExtProperties() {
+		return new WechatExtProperties();
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public WechatExtService wechatExtService() {
+		WechatExtService wechatExtService = new WechatExtService();
+		wechatExtService.setWechatExtProperties(wechatExtProperties());
+		return wechatExtService;
+	}
+
+	@Bean
+	@ConditionalOnBean(IncomeMessageListener.class)
+	@ConditionalOnMissingBean
+	public WechatExtController wechatExtController() {
+		WechatExtController wechatExtController = new WechatExtController();
+		wechatExtController.setIncomeMessageListener(applicationContext.getBean(IncomeMessageListener.class));
+		wechatExtController.setWechatExtProperties(wechatExtProperties());
+		wechatExtController.setWechatExtService(wechatExtService());
+		return wechatExtController;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public CoreApi coreApi() {
+		CoreApi coreApi = new CoreApi();
+		coreApi.setRestTemplate(restTemplate());
+		coreApi.setWechatExtProperties(wechatExtProperties());
+		coreApi.setWechatExtService(wechatExtService());
+		return coreApi;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public MenuApi menuApi() {
+		MenuApi menuApi = new MenuApi();
+		menuApi.setCoreApi(coreApi());
+		menuApi.setRestTemplate(restTemplate());
+		menuApi.setWechatExtService(wechatExtService());
+		return menuApi;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public MessageApi messageApi() {
+		MessageApi messageApi = new MessageApi();
+		messageApi.setCoreApi(coreApi());
+		messageApi.setRestTemplate(restTemplate());
+		messageApi.setWechatExtService(wechatExtService());
+		return messageApi;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public TagApi tagApi() {
+		TagApi tagApi = new TagApi();
+		tagApi.setCoreApi(coreApi());
+		tagApi.setRestTemplate(restTemplate());
+		tagApi.setWechatExtService(wechatExtService());
+		return tagApi;
 	}
 
 }

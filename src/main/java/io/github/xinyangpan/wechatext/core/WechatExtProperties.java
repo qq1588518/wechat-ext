@@ -1,17 +1,15 @@
 package io.github.xinyangpan.wechatext.core;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Service;
 
-@Service
 @ConfigurationProperties("wechat")
 public class WechatExtProperties {
 
 	private String appId;
 	private String appSecret;
 	private String token;
-	private String wechatUrl;
-	private boolean requestDumpEnable;
+	private String wechatUrl = "https://api.weixin.qq.com/cgi-bin";
+	private boolean requestDumpEnable = false;
 
 	@Override
 	public String toString() {
