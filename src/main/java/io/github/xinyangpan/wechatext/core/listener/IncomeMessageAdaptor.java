@@ -2,8 +2,6 @@ package io.github.xinyangpan.wechatext.core.listener;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import io.github.xinyangpan.wechatext.core.vo.xml.Xml;
@@ -11,11 +9,12 @@ import io.github.xinyangpan.wechatext.core.vo.xml.XmlEvent;
 import io.github.xinyangpan.wechatext.core.vo.xml.XmlText;
 
 public abstract class IncomeMessageAdaptor implements IncomeMessageListener {
-	@Autowired
-	private XmlMapper xmlMapper;
+
+	public abstract XmlMapper getXmlMapper();
 
 	@Override
 	public String onMessage(String message) throws IOException {
+		XmlMapper xmlMapper = this.getXmlMapper();
 		Xml xml = xmlMapper.readValue(message, Xml.class);
 		switch (xml.getMsgType()) {
 		case text:
