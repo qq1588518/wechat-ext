@@ -1,4 +1,4 @@
-package io.github.xinyangpan.wechatext.api.vo.xml;
+package io.github.xinyangpan.wechatext.core.vo.xml;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;

@@ -1,4 +1,4 @@
-package io.github.xinyangpan.wechatext.api.vo.xml;
+package io.github.xinyangpan.wechatext.core.vo.xml;
 
 public enum EventType {
 	subscribe, unsubscribe, VIEW, TEMPLATESENDJOBFINISH;

@@ -1,9 +1,7 @@
 package io.github.xinyangpan.wechatext;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import org.apache.catalina.filters.RequestDumperFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -14,26 +12,22 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.common.collect.Lists;
 
-import io.github.xinyangpan.wechatext.core.WechatExtProperties;
-
 @Configuration
 public class WechatExtConfiguration {
-	@Autowired
-	private WechatExtProperties wechatExtProperties;
 
 	@Bean
-	@ConditionalOnProperty("app.request-dump-enable")
+	@ConditionalOnProperty("wechat.request-dump-enable")
 	public FilterRegistrationBean filterRegistration() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(new RequestDumperFilter());
 		registration.addUrlPatterns("/*");
 		registration.setName("RequestDumperFilter");
 		registration.setOrder(1);
-		registration.setEnabled(wechatExtProperties.isRequestDumpEnable());
 		return registration;
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public RestTemplate restTemplate() {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setMessageConverters(Lists.newArrayList(new MappingJackson2HttpMessageConverter()));
@@ -41,13 +35,9 @@ public class WechatExtConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnMissingBean
 	public XmlMapper xmlMapper() {
 		return new XmlMapper();
-	}
-
-	@Bean
-	public AtomicReference<String> lastOpenIdHolder() {
-		return new AtomicReference<String>("opKYO0usv-lgVs4fVTP9sr4tLh8w");
 	}
 
 }

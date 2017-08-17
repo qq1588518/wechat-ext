@@ -1,9 +1,9 @@
 package io.github.xinyangpan.wechatext.core;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @ConfigurationProperties("wechat")
 public class WechatExtProperties {
 

@@ -1,4 +1,4 @@
-package io.github.xinyangpan.wechatext.api.vo.json;
+package io.github.xinyangpan.wechatext.core.vo.json;
 
 public class ApiError {
 

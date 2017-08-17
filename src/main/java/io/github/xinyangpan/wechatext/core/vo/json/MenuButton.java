@@ -1,4 +1,4 @@
-package io.github.xinyangpan.wechatext.api.vo.json;
+package io.github.xinyangpan.wechatext.core.vo.json;
 
 //button	是	一级菜单数组，个数应为1~3个
 //sub_button	否	二级菜单数组，个数应为1~5个
