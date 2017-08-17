@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -24,10 +24,11 @@ import io.github.xinyangpan.wechatext.core.WechatExtProperties;
 import io.github.xinyangpan.wechatext.core.WechatExtService;
 import io.github.xinyangpan.wechatext.core.listener.IncomeMessageListener;
 
+@EnableConfigurationProperties(WechatExtProperties.class)
 @Configuration
-public class WechatExtConfiguration {
+public class WechatExtAutoConfiguration {
 	@Autowired
-	private ApplicationContext applicationContext;
+	private WechatExtProperties wechatExtProperties;
 
 	@Bean
 	@ConditionalOnProperty("wechat.request-dump-enable")
@@ -56,25 +57,19 @@ public class WechatExtConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public WechatExtProperties wechatExtProperties() {
-		return new WechatExtProperties();
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
 	public WechatExtService wechatExtService() {
 		WechatExtService wechatExtService = new WechatExtService();
-		wechatExtService.setWechatExtProperties(wechatExtProperties());
+		wechatExtService.setWechatExtProperties(wechatExtProperties);
 		return wechatExtService;
 	}
 
 	@Bean
 	@ConditionalOnBean(IncomeMessageListener.class)
 	@ConditionalOnMissingBean
-	public WechatExtController wechatExtController() {
+	public WechatExtController wechatExtController(IncomeMessageListener incomeMessageListener) {
 		WechatExtController wechatExtController = new WechatExtController();
-		wechatExtController.setIncomeMessageListener(applicationContext.getBean(IncomeMessageListener.class));
-		wechatExtController.setWechatExtProperties(wechatExtProperties());
+		wechatExtController.setIncomeMessageListener(incomeMessageListener);
+		wechatExtController.setWechatExtProperties(wechatExtProperties);
 		wechatExtController.setWechatExtService(wechatExtService());
 		return wechatExtController;
 	}
@@ -84,7 +79,7 @@ public class WechatExtConfiguration {
 	public CoreApi coreApi() {
 		CoreApi coreApi = new CoreApi();
 		coreApi.setRestTemplate(restTemplate());
-		coreApi.setWechatExtProperties(wechatExtProperties());
+		coreApi.setWechatExtProperties(wechatExtProperties);
 		coreApi.setWechatExtService(wechatExtService());
 		return coreApi;
 	}
