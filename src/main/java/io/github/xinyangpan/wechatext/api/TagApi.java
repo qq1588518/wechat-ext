@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 import io.github.xinyangpan.wechatext.api.vo.json.ApiError;
 import io.github.xinyangpan.wechatext.api.vo.json.Tagging;
+import io.github.xinyangpan.wechatext.core.WechatExtService;
 import okhttp3.HttpUrl;
 
 @Component
@@ -14,9 +15,11 @@ public class TagApi {
 	private RestTemplate restTemplate;
 	@Autowired
 	private CoreApi coreApi;
+	@Autowired
+	private WechatExtService wechatExtService;
 	
 	public <T> ApiError tagging(Tagging tagging) {
-		HttpUrl url = WeixinUtils.commonBuilder()
+		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("tags")
 			.addPathSegment("members")
 			.addPathSegment("batchtagging")

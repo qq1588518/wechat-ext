@@ -8,6 +8,7 @@ import io.github.xinyangpan.wechatext.api.vo.json.ApiError;
 import io.github.xinyangpan.wechatext.api.vo.json.ConditionalMenuBar;
 import io.github.xinyangpan.wechatext.api.vo.json.MenuBar;
 import io.github.xinyangpan.wechatext.api.vo.json.MenuId;
+import io.github.xinyangpan.wechatext.core.WechatExtService;
 import okhttp3.HttpUrl;
 
 @Component
@@ -16,9 +17,11 @@ public class MenuApi {
 	private RestTemplate restTemplate;
 	@Autowired
 	private CoreApi coreApi;
+	@Autowired
+	private WechatExtService wechatExtService;
 	
 	public ApiError create(MenuBar menuBar) {
-		HttpUrl url = WeixinUtils.commonBuilder()
+		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("menu")
 			.addPathSegment("create")
 			.addQueryParameter("access_token", coreApi.currentAccessToken())
@@ -28,7 +31,7 @@ public class MenuApi {
 	}
 	
 	public MenuId addConditional(ConditionalMenuBar conditionalMenuBar) {
-		HttpUrl url = WeixinUtils.commonBuilder()
+		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("menu")
 			.addPathSegment("addconditional")
 			.addQueryParameter("access_token", coreApi.currentAccessToken())
@@ -38,7 +41,7 @@ public class MenuApi {
 	}
 	
 	public ApiError delConditional(MenuId menuId) {
-		HttpUrl url = WeixinUtils.commonBuilder()
+		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("menu")
 			.addPathSegment("delconditional")
 			.addQueryParameter("access_token", coreApi.currentAccessToken())

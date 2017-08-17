@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 import io.github.xinyangpan.wechatext.api.vo.json.ApiError;
 import io.github.xinyangpan.wechatext.api.vo.json.TemplateMessage;
+import io.github.xinyangpan.wechatext.core.WechatExtService;
 import okhttp3.HttpUrl;
 
 @Component
@@ -14,9 +15,11 @@ public class MessageApi {
 	private RestTemplate restTemplate;
 	@Autowired
 	private CoreApi coreApi;
+	@Autowired
+	private WechatExtService wechatExtService;
 	
 	public <T> ApiError sendTemplateMessage(TemplateMessage<T> templateMessage) {
-		HttpUrl url = WeixinUtils.commonBuilder()
+		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("message")
 			.addPathSegment("template")
 			.addPathSegment("send")

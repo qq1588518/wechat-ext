@@ -1,4 +1,4 @@
-package io.github.xinyangpan.wechatext.configuration;
+package io.github.xinyangpan.wechatext;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -14,8 +14,10 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.google.common.collect.Lists;
 
+import io.github.xinyangpan.wechatext.core.WechatExtProperties;
+
 @Configuration
-public class CoreConfiguration {
+public class WechatExtConfiguration {
 	@Autowired
 	private WechatExtProperties wechatExtProperties;
 

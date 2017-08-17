@@ -1,7 +1,5 @@
 package io.github.xinyangpan.wechatext.controller;
 
-import static io.github.xinyangpan.wechatext.api.WeixinUtils.isSignatureValid;
-
 import java.io.IOException;
 
 import org.slf4j.Logger;
@@ -15,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import io.github.xinyangpan.wechatext.api.income.IncomeMessageListener;
-import io.github.xinyangpan.wechatext.configuration.WechatExtProperties;
+import io.github.xinyangpan.wechatext.core.WechatExtProperties;
+import io.github.xinyangpan.wechatext.core.WechatExtService;
 
 @Controller
 public class WechatExtController {
@@ -24,6 +23,8 @@ public class WechatExtController {
 	private WechatExtProperties wechatExtProperties;
 	@Autowired
 	private IncomeMessageListener incomeMessageListener;
+	@Autowired
+	private WechatExtService wechatExtService;
 
 	@RequestMapping(value = "/wechat", method = RequestMethod.GET)
 	@ResponseBody
@@ -33,7 +34,7 @@ public class WechatExtController {
 		@RequestParam("timestamp") String timestamp,
 		@RequestParam("nonce") String nonce) {
 		// 
-		if (isSignatureValid(signature, wechatExtProperties.getToken(), timestamp, nonce)) {
+		if (wechatExtService.isSignatureValid(signature, wechatExtProperties.getToken(), timestamp, nonce)) {
 			log.warn("invalid signature: " + signature);
 			return "fail";
 		}
@@ -48,7 +49,7 @@ public class WechatExtController {
 		@RequestParam("nonce") String nonce,
 		@RequestBody String content) throws IOException {
 		// 
-		if (!isSignatureValid(signature, wechatExtProperties.getToken(), timestamp, nonce)) {
+		if (!wechatExtService.isSignatureValid(signature, wechatExtProperties.getToken(), timestamp, nonce)) {
 			log.warn("invalid signature: " + signature);
 			return "fail";
 		}
