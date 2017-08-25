@@ -11,7 +11,7 @@ public class TagApi {
 	private RestTemplate restTemplate;
 	private CoreApi coreApi;
 	private WechatExtService wechatExtService;
-	
+
 	public <T> ApiError tagging(Tagging tagging) {
 		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("tags")

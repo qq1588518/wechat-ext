@@ -33,7 +33,8 @@ public class CoreApi {
 			.addQueryParameter("appid", appId)
 			.addQueryParameter("secret", appSecret)
 			.build();
-		return restTemplate.getForObject(url.toString(), AccessToken.class).throwExceptionIfError();
+		AccessToken accessToken = restTemplate.getForObject(url.toString(), AccessToken.class);
+		return accessToken.throwExceptionIfError();
 	}
 
 	public RestTemplate getRestTemplate() {

@@ -11,7 +11,7 @@ public class MessageApi {
 	private RestTemplate restTemplate;
 	private CoreApi coreApi;
 	private WechatExtService wechatExtService;
-	
+
 	public <T> ApiError sendTemplateMessage(TemplateMessage<T> templateMessage) {
 		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("message")
@@ -47,5 +47,5 @@ public class MessageApi {
 	public void setWechatExtService(WechatExtService wechatExtService) {
 		this.wechatExtService = wechatExtService;
 	}
-	
+
 }

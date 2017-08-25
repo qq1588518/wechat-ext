@@ -13,7 +13,7 @@ public class MenuApi {
 	private RestTemplate restTemplate;
 	private CoreApi coreApi;
 	private WechatExtService wechatExtService;
-	
+
 	public ApiError create(MenuBar menuBar) {
 		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("menu")
@@ -24,7 +24,7 @@ public class MenuApi {
 		ApiError apiError = restTemplate.postForObject(url.toString(), menuBar, ApiError.class);
 		return apiError.throwExceptionIfError();
 	}
-	
+
 	public MenuId addConditional(ConditionalMenuBar conditionalMenuBar) {
 		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("menu")
@@ -35,7 +35,7 @@ public class MenuApi {
 		MenuId menuId = restTemplate.postForObject(url.toString(), conditionalMenuBar, MenuId.class);
 		return menuId.throwExceptionIfError();
 	}
-	
+
 	public ApiError delConditional(MenuId menuId) {
 		HttpUrl url = wechatExtService.commonBuilder()
 			.addPathSegment("menu")
@@ -70,5 +70,5 @@ public class MenuApi {
 	public void setWechatExtService(WechatExtService wechatExtService) {
 		this.wechatExtService = wechatExtService;
 	}
-	
+
 }
