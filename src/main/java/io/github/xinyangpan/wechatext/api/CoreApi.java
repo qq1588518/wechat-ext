@@ -27,7 +27,12 @@ public class CoreApi {
 	}
 
 	private AccessToken accessToken(String appId, String appSecret) {
-		HttpUrl url = wechatExtService.commonBuilder().addPathSegment("token").addQueryParameter("grant_type", "client_credential").addQueryParameter("appid", appId).addQueryParameter("secret", appSecret).build();
+		HttpUrl url = wechatExtService.commonBuilder()
+			.addPathSegment("token")
+			.addQueryParameter("grant_type", "client_credential")
+			.addQueryParameter("appid", appId)
+			.addQueryParameter("secret", appSecret)
+			.build();
 		return restTemplate.getForObject(url.toString(), AccessToken.class).throwExceptionIfError();
 	}
 

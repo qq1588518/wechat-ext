@@ -21,7 +21,8 @@ public class MenuApi {
 			.addQueryParameter("access_token", coreApi.currentAccessToken())
 			.build();
 		// 
-		return restTemplate.postForObject(url.toString(), menuBar, ApiError.class).throwExceptionIfError();
+		ApiError apiError = restTemplate.postForObject(url.toString(), menuBar, ApiError.class);
+		return apiError.throwExceptionIfError();
 	}
 	
 	public MenuId addConditional(ConditionalMenuBar conditionalMenuBar) {
@@ -31,7 +32,8 @@ public class MenuApi {
 			.addQueryParameter("access_token", coreApi.currentAccessToken())
 			.build();
 		// 
-		return restTemplate.postForObject(url.toString(), conditionalMenuBar, MenuId.class).throwExceptionIfError();
+		MenuId menuId = restTemplate.postForObject(url.toString(), conditionalMenuBar, MenuId.class);
+		return menuId.throwExceptionIfError();
 	}
 	
 	public ApiError delConditional(MenuId menuId) {
@@ -41,7 +43,8 @@ public class MenuApi {
 			.addQueryParameter("access_token", coreApi.currentAccessToken())
 			.build();
 		// 
-		return restTemplate.postForObject(url.toString(), menuId, ApiError.class).throwExceptionIfError();
+		ApiError apiError = restTemplate.postForObject(url.toString(), menuId, ApiError.class);
+		return apiError.throwExceptionIfError();
 	}
 
 	public RestTemplate getRestTemplate() {

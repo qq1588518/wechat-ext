@@ -20,7 +20,8 @@ public class TagApi {
 			.addQueryParameter("access_token", coreApi.currentAccessToken())
 			.build();
 		// 
-		return restTemplate.postForObject(url.toString(), tagging, ApiError.class).throwExceptionIfError();
+		ApiError apiError = restTemplate.postForObject(url.toString(), tagging, ApiError.class);
+		return apiError.throwExceptionIfError();
 	}
 
 	public RestTemplate getRestTemplate() {

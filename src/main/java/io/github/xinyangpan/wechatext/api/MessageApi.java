@@ -20,7 +20,8 @@ public class MessageApi {
 			.addQueryParameter("access_token", coreApi.currentAccessToken())
 			.build();
 		// 
-		return restTemplate.postForObject(url.toString(), templateMessage, ApiError.class).throwExceptionIfError();
+		ApiError apiError = restTemplate.postForObject(url.toString(), templateMessage, ApiError.class);
+		return apiError.throwExceptionIfError();
 	}
 
 	public RestTemplate getRestTemplate() {
