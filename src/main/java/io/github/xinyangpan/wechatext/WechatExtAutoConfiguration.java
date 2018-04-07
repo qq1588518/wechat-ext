@@ -29,8 +29,8 @@ public class WechatExtAutoConfiguration {
 
 	@Bean
 	@ConditionalOnProperty("wechat.request-dump-enable")
-	public FilterRegistrationBean filterRegistration() {
-		FilterRegistrationBean registration = new FilterRegistrationBean();
+	public FilterRegistrationBean<RequestDumperFilter> filterRegistration() {
+		FilterRegistrationBean<RequestDumperFilter> registration = new FilterRegistrationBean<>();
 		registration.setFilter(new RequestDumperFilter());
 		registration.addUrlPatterns("/*");
 		registration.setName("RequestDumperFilter");
