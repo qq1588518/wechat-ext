@@ -34,7 +34,7 @@ public class WechatExtController {
 		@RequestParam("timestamp") String timestamp,
 		@RequestParam("nonce") String nonce) {
 		// 
-		if (wechatExtService.isSignatureValid(signature, wechatExtProperties.getToken(), timestamp, nonce)) {
+		if (!wechatExtService.isSignatureValid(signature, wechatExtProperties.getToken(), timestamp, nonce)) {
 			log.warn("invalid signature: " + signature);
 			return "fail";
 		}
