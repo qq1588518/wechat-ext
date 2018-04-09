@@ -21,12 +21,12 @@ public class WechatExtService {
 	}
 
 	public boolean isSignatureValid(String signature, String token, String timestamp, String nonce) {
-		log.debug("isSignatureValid: signature={}, token={}, timestamp={}, nonce={}", signature, token, timestamp, nonce);
+		log.info("isSignatureValid: signature={}, token={}, timestamp={}, nonce={}", signature, token, timestamp, nonce);
 		String[] strs = new String[] { token, timestamp, nonce };
 		Arrays.sort(strs);
 		String concat = Joiner.on("").join(strs);
 		String calculateSignature = DigestUtils.sha1Hex(concat);
-		log.debug("Calculated Signature: {}", calculateSignature);
+		log.info("Calculated Signature: {}", calculateSignature);
 		return Objects.equals(signature, calculateSignature);
 	}
 
