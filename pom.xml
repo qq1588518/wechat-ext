@@ -76,12 +76,12 @@
 
 	<distributionManagement>
 		<repository>
-			<id>my-release</id>
+			<id>pxy-releases</id>
 			<name>release</name>
 			<url>http://panxinyang.cn:8081/repository/maven-releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>my-snapshot</id>
+			<id>pxy-snapshots</id>
 			<name>snapshot</name>
 			<url>http://panxinyang.cn:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
