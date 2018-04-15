@@ -17,6 +17,7 @@ import io.github.xinyangpan.wechatext.api.CoreApi;
 import io.github.xinyangpan.wechatext.api.MenuApi;
 import io.github.xinyangpan.wechatext.api.MessageApi;
 import io.github.xinyangpan.wechatext.api.TagApi;
+import io.github.xinyangpan.wechatext.core.RestWrapper;
 import io.github.xinyangpan.wechatext.core.WechatExtProperties;
 import io.github.xinyangpan.wechatext.core.WechatExtService;
 
@@ -69,6 +70,15 @@ public class WechatExtAutoConfiguration {
 	// ----- API
 	// -----------------------------
 
+	@Bean
+	@ConditionalOnMissingBean
+	public RestWrapper restWrapper() {
+		RestWrapper restWrapper = new RestWrapper();
+		restWrapper.setRestTemplate(restTemplate());
+		restWrapper.setObjectMapper(objectMapper());
+		return restWrapper;
+	}
+	
 	@Bean
 	@ConditionalOnMissingBean
 	public CoreApi coreApi() {

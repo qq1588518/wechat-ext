@@ -17,6 +17,7 @@ import io.github.xinyangpan.wechatext.core.WechatExtService;
 import io.github.xinyangpan.wechatext.core.listener.IncomeMessageListener;
 
 @Controller
+@RequestMapping(value = "/wechat")
 public class WechatExtController {
 	private static final Logger log = LoggerFactory.getLogger(WechatExtController.class);
 	@Autowired
@@ -26,7 +27,7 @@ public class WechatExtController {
 	@Autowired
 	private WechatExtService wechatExtService;
 
-	@RequestMapping(value = "/wechat", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
 	public String token(
 		@RequestParam("signature") String signature,
@@ -41,7 +42,12 @@ public class WechatExtController {
 		return echostr;
 	}
 
-	@RequestMapping(value = "/wechat", method = RequestMethod.POST, consumes = "text/xml")
+	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
+	public String weixinRedirect(@RequestParam(name = "scope", defaultValue = "snsapi_base") String scope) {
+		return String.format("redirect:%s", wechatExtService.authorizeUrl(scope));
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, consumes = "text/xml")
 	@ResponseBody
 	public String business(
 		@RequestParam("signature") String signature,

@@ -8,12 +8,12 @@ public class WechatExtProperties {
 	private String appId;
 	private String appSecret;
 	private String token;
-	private String wechatUrl = "https://api.weixin.qq.com/cgi-bin";
+	private String redirectUri;
 	private boolean requestDumpEnable = false;
 
 	@Override
 	public String toString() {
-		return String.format("WechatExtProperties [appId=%s, appSecret=%s, token=%s, wechatUrl=%s, requestDumpEnable=%s]", appId, appSecret, token, wechatUrl, requestDumpEnable);
+		return String.format("WechatExtProperties [appId=%s, appSecret=%s, token=%s, redirectUri=%s, requestDumpEnable=%s]", appId, appSecret, token, redirectUri, requestDumpEnable);
 	}
 
 	public String getAppId() {
@@ -40,20 +40,20 @@ public class WechatExtProperties {
 		this.token = token;
 	}
 
-	public String getWechatUrl() {
-		return wechatUrl;
-	}
-
-	public void setWechatUrl(String wechatUrl) {
-		this.wechatUrl = wechatUrl;
-	}
-
 	public boolean isRequestDumpEnable() {
 		return requestDumpEnable;
 	}
 
 	public void setRequestDumpEnable(boolean requestDumpEnable) {
 		this.requestDumpEnable = requestDumpEnable;
+	}
+
+	public String getRedirectUri() {
+		return redirectUri;
+	}
+
+	public void setRedirectUri(String redirectUri) {
+		this.redirectUri = redirectUri;
 	}
 
 }

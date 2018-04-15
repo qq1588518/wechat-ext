@@ -2,7 +2,7 @@ package io.github.xinyangpan.wechatext.core.vo.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Oauth2 extends AccessToken {
+public class UserBaseInfo extends AccessToken {
 	private String refreshToken;
 	@JsonProperty("openid")
 	private String openId;
