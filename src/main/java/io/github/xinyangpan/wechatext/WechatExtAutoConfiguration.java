@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import io.github.xinyangpan.wechatext.api.CoreApi;
@@ -42,6 +43,12 @@ public class WechatExtAutoConfiguration {
 		RestTemplate restTemplate = new RestTemplate();
 //		restTemplate.setMessageConverters(Lists.newArrayList(new MappingJackson2HttpMessageConverter()));
 		return restTemplate;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
 	}
 
 	@Bean
