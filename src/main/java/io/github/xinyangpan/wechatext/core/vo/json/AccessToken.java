@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class AccessToken extends ApiError {
-	private String accessToken;
-	private int expiresIn;
+	protected String accessToken;
+	protected int expiresIn;
 
 	@Override
 	public String toString() {

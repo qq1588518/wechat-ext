@@ -8,6 +8,11 @@ public class Oauth2 extends AccessToken {
 	private String openId;
 	private String scope;
 
+	@Override
+	public String toString() {
+		return String.format("Oauth2 [accessToken=%s, expiresIn=%s, refreshToken=%s, openId=%s, scope=%s]", accessToken, expiresIn, refreshToken, openId, scope);
+	}
+
 	public String getRefreshToken() {
 		return refreshToken;
 	}
