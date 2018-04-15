@@ -63,6 +63,7 @@ public class WechatExtAutoConfiguration {
 	public WechatExtService wechatExtService() {
 		WechatExtService wechatExtService = new WechatExtService();
 		wechatExtService.setWechatExtProperties(wechatExtProperties);
+		wechatExtService.setRestWrapper(restWrapper());
 		return wechatExtService;
 	}
 
