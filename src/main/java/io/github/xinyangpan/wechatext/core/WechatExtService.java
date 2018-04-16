@@ -31,8 +31,11 @@ public class WechatExtService {
 	 * @return
 	 */
 	public String authorizeUrl(String scope) {
+		return this.authorizeUrl(scope, wechatExtProperties.getRedirectUri());
+	}
+	
+	public String authorizeUrl(String scope, String redirectUri) {
 		String appId = wechatExtProperties.getAppId();
-		String redirectUri = wechatExtProperties.getRedirectUri();
 		String responseType = "code";
 		if ("snsapi_base".equals(scope)||"snsapi_userinfo".equals(scope)) {
 			return HttpUrl.parse("https://open.weixin.qq.com/connect/oauth2/authorize").newBuilder()
