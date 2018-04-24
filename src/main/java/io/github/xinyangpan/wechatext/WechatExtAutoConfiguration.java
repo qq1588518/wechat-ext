@@ -13,9 +13,12 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+import io.github.xinyangpan.wechatext.api.AbstractApi;
+import io.github.xinyangpan.wechatext.api.AbstractBusinessApi;
 import io.github.xinyangpan.wechatext.api.CoreApi;
 import io.github.xinyangpan.wechatext.api.MenuApi;
 import io.github.xinyangpan.wechatext.api.MessageApi;
+import io.github.xinyangpan.wechatext.api.QrCodeApi;
 import io.github.xinyangpan.wechatext.api.TagApi;
 import io.github.xinyangpan.wechatext.core.RestWrapper;
 import io.github.xinyangpan.wechatext.core.WechatExtProperties;
@@ -42,7 +45,6 @@ public class WechatExtAutoConfiguration {
 	@ConditionalOnMissingBean
 	public RestTemplate restTemplate() {
 		RestTemplate restTemplate = new RestTemplate();
-//		restTemplate.setMessageConverters(Lists.newArrayList(new MappingJackson2HttpMessageConverter()));
 		return restTemplate;
 	}
 
@@ -79,45 +81,48 @@ public class WechatExtAutoConfiguration {
 		restWrapper.setObjectMapper(objectMapper());
 		return restWrapper;
 	}
-	
+
 	@Bean
 	@ConditionalOnMissingBean
 	public CoreApi coreApi() {
-		CoreApi coreApi = new CoreApi();
-		coreApi.setRestTemplate(restTemplate());
-		coreApi.setWechatExtProperties(wechatExtProperties);
-		coreApi.setWechatExtService(wechatExtService());
-		return coreApi;
+		return this.buildAbstractApi(new CoreApi());
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	public MenuApi menuApi() {
-		MenuApi menuApi = new MenuApi();
-		menuApi.setCoreApi(coreApi());
-		menuApi.setRestTemplate(restTemplate());
-		menuApi.setWechatExtService(wechatExtService());
-		return menuApi;
+		return this.buildAbstractBusinessApi(new MenuApi());
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	public MessageApi messageApi() {
-		MessageApi messageApi = new MessageApi();
-		messageApi.setCoreApi(coreApi());
-		messageApi.setRestTemplate(restTemplate());
-		messageApi.setWechatExtService(wechatExtService());
-		return messageApi;
+		return this.buildAbstractBusinessApi(new MessageApi());
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	public TagApi tagApi() {
-		TagApi tagApi = new TagApi();
-		tagApi.setCoreApi(coreApi());
-		tagApi.setRestTemplate(restTemplate());
-		tagApi.setWechatExtService(wechatExtService());
-		return tagApi;
+		return this.buildAbstractBusinessApi(new TagApi());
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public QrCodeApi qrCodeApi() {
+		return this.buildAbstractBusinessApi(new QrCodeApi());
+	}
+
+	public <T extends AbstractBusinessApi> T buildAbstractBusinessApi(T t) {
+		this.buildAbstractApi(t);
+		t.setCoreApi(coreApi());
+		return t;
+	}
+
+	public <T extends AbstractApi> T buildAbstractApi(T t) {
+		t.setRestTemplate(restTemplate());
+		t.setWechatExtProperties(wechatExtProperties);
+		t.setWechatExtService(wechatExtService());
+		return t;
 	}
 
 }

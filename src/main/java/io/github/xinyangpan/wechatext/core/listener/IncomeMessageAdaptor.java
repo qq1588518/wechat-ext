@@ -2,19 +2,24 @@ package io.github.xinyangpan.wechatext.core.listener;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import io.github.xinyangpan.wechatext.core.vo.xml.Xml;
 import io.github.xinyangpan.wechatext.core.vo.xml.XmlEvent;
 import io.github.xinyangpan.wechatext.core.vo.xml.XmlText;
 
-public abstract class IncomeMessageAdaptor implements IncomeMessageListener {
-
-	public abstract XmlMapper getXmlMapper();
+public class IncomeMessageAdaptor implements IncomeMessageListener {
+	private static final Logger log = LoggerFactory.getLogger(IncomeMessageAdaptor.class);
+	@Autowired
+	protected XmlMapper xmlMapper;
 
 	@Override
 	public String onMessage(String message) throws IOException {
-		XmlMapper xmlMapper = this.getXmlMapper();
+		log.info("IncomeMessageAdaptor - onMessage: {}", message);
 		Xml xml = xmlMapper.readValue(message, Xml.class);
 		switch (xml.getMsgType()) {
 		case text:

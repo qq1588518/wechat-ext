@@ -2,8 +2,8 @@ package io.github.xinyangpan.wechatext.core.vo.json;
 
 public class ApiError {
 
-	private Integer errcode;
-	private String errmsg;
+	protected Integer errcode;
+	protected String errmsg;
 
 	@SuppressWarnings("unchecked")
 	public <T extends ApiError> T throwExceptionIfError() {
