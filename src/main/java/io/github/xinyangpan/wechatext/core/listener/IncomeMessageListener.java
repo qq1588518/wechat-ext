@@ -2,8 +2,15 @@ package io.github.xinyangpan.wechatext.core.listener;
 
 import java.io.IOException;
 
-public interface IncomeMessageListener {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-	public String onMessage(String message) throws IOException;
+public interface IncomeMessageListener {
+	Logger log = LoggerFactory.getLogger(IncomeMessageListener.class);
+
+	public default String onMessage(String message) throws IOException {
+		log.info("IncomeMessageListener - onMessage: {}", message);
+		return "";
+	}
 
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
@@ -14,8 +13,11 @@ import io.github.xinyangpan.wechatext.core.vo.xml.XmlText;
 
 public class IncomeMessageAdaptor implements IncomeMessageListener {
 	private static final Logger log = LoggerFactory.getLogger(IncomeMessageAdaptor.class);
-	@Autowired
-	protected XmlMapper xmlMapper;
+	protected final XmlMapper xmlMapper;
+
+	public IncomeMessageAdaptor(XmlMapper xmlMapper) {
+		this.xmlMapper = xmlMapper;
+	}
 
 	@Override
 	public String onMessage(String message) throws IOException {

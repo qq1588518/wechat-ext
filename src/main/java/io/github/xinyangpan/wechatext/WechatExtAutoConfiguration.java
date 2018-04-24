@@ -23,6 +23,7 @@ import io.github.xinyangpan.wechatext.api.TagApi;
 import io.github.xinyangpan.wechatext.core.RestWrapper;
 import io.github.xinyangpan.wechatext.core.WechatExtProperties;
 import io.github.xinyangpan.wechatext.core.WechatExtService;
+import io.github.xinyangpan.wechatext.core.listener.IncomeMessageListener;
 
 @EnableConfigurationProperties(WechatExtProperties.class)
 @Configuration
@@ -67,6 +68,12 @@ public class WechatExtAutoConfiguration {
 		wechatExtService.setWechatExtProperties(wechatExtProperties);
 		wechatExtService.setRestWrapper(restWrapper());
 		return wechatExtService;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public IncomeMessageListener incomeMessageListener() {
+		return new IncomeMessageListener() {};
 	}
 
 	// -----------------------------
