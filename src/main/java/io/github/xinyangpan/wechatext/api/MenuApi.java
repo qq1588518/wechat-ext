@@ -9,10 +9,7 @@ import io.github.xinyangpan.wechatext.core.vo.json.MenuBar;
 import io.github.xinyangpan.wechatext.core.vo.json.MenuId;
 import okhttp3.HttpUrl;
 
-public class MenuApi {
-	private RestTemplate restTemplate;
-	private CoreApi coreApi;
-	private WechatExtService wechatExtService;
+public class MenuApi extends AbstractApi {
 
 	public ApiError create(MenuBar menuBar) {
 		HttpUrl url = wechatExtService.commonBuilder()

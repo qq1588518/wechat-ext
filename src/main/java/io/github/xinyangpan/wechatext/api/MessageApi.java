@@ -7,10 +7,7 @@ import io.github.xinyangpan.wechatext.core.vo.json.ApiError;
 import io.github.xinyangpan.wechatext.core.vo.json.TemplateMessage;
 import okhttp3.HttpUrl;
 
-public class MessageApi {
-	private RestTemplate restTemplate;
-	private CoreApi coreApi;
-	private WechatExtService wechatExtService;
+public class MessageApi extends AbstractApi {
 
 	public <T> ApiError sendTemplateMessage(TemplateMessage<T> templateMessage) {
 		HttpUrl url = wechatExtService.commonBuilder()

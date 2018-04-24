@@ -1,5 +1,5 @@
 package io.github.xinyangpan.wechatext.api;
 
-public class UserApi {
+public class UserApi extends AbstractApi {
 
 }

@@ -7,10 +7,7 @@ import io.github.xinyangpan.wechatext.core.vo.json.ApiError;
 import io.github.xinyangpan.wechatext.core.vo.json.Tagging;
 import okhttp3.HttpUrl;
 
-public class TagApi {
-	private RestTemplate restTemplate;
-	private CoreApi coreApi;
-	private WechatExtService wechatExtService;
+public class TagApi extends AbstractApi {
 
 	public <T> ApiError tagging(Tagging tagging) {
 		HttpUrl url = wechatExtService.commonBuilder()

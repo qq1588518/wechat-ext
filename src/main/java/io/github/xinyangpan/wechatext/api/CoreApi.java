@@ -7,10 +7,7 @@ import io.github.xinyangpan.wechatext.core.WechatExtService;
 import io.github.xinyangpan.wechatext.core.vo.json.AccessToken;
 import okhttp3.HttpUrl;
 
-public class CoreApi {
-	private RestTemplate restTemplate;
-	private WechatExtProperties wechatExtProperties;
-	private WechatExtService wechatExtService;
+public class CoreApi extends AbstractApi {
 
 	// 
 	private String accessTokenStr;
