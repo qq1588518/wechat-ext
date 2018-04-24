@@ -42,24 +42,30 @@ public class IncomeMessageAdaptor implements IncomeMessageListener {
 			return this.onTemplateSendJobFinishEvent(xmlEvent);
 		case VIEW:
 			return this.onViewEvent(xmlEvent);
+		case SCAN:
+			return this.onScanEvent(xmlEvent);
 		default:
 			return "success";
 		}
 	}
 
-	public String onSubscribeEvent(XmlEvent xmlEvent) throws IOException {
+	protected String onScanEvent(XmlEvent xmlEvent) throws IOException {
 		return "";
 	}
 
-	public String onUnsubscribeEvent(XmlEvent xmlEvent) throws IOException {
+	protected String onSubscribeEvent(XmlEvent xmlEvent) throws IOException {
 		return "";
 	}
 
-	public String onTemplateSendJobFinishEvent(XmlEvent xmlEvent) throws IOException {
+	protected String onUnsubscribeEvent(XmlEvent xmlEvent) throws IOException {
 		return "";
 	}
 
-	public String onViewEvent(XmlEvent xmlEvent) throws IOException {
+	protected String onTemplateSendJobFinishEvent(XmlEvent xmlEvent) throws IOException {
+		return "";
+	}
+
+	protected String onViewEvent(XmlEvent xmlEvent) throws IOException {
 		return "";
 	}
 
