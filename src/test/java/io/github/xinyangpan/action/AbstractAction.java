@@ -15,9 +15,7 @@ import com.google.common.io.CharSource;
 import com.google.common.io.Files;
 
 import io.github.xinyangpan.wechatext.WechatExtAutoConfiguration;
-import io.github.xinyangpan.wechatext.api.CoreApi;
-import io.github.xinyangpan.wechatext.api.MenuApi;
-import io.github.xinyangpan.wechatext.api.QrCodeApi;
+import io.github.xinyangpan.wechatext.api.Api;
 import io.github.xinyangpan.wechatext.core.WechatExtProperties;
 
 @RunWith(SpringRunner.class)
@@ -32,11 +30,7 @@ public class AbstractAction {
 	protected ObjectMapper objectMapper;
 	//
 	@Autowired
-	protected QrCodeApi qrCodeApi;
-	@Autowired
-	protected CoreApi coreApi;
-	@Autowired
-	protected MenuApi menuApi;
+	protected Api api;
 
 	@Before
 	public void before() throws Exception {
@@ -45,7 +39,7 @@ public class AbstractAction {
 		System.out.println(appSecret);
 		wechatExtProperties.setAppId("wxad7f4e65a5154252");
 		wechatExtProperties.setAppSecret(appSecret);
-		System.out.println(coreApi.currentAccessToken());
+		System.out.println(api.core().currentAccessToken());
 	}
 
 }

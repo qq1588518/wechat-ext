@@ -10,7 +10,7 @@ public class CreateQrCode extends AbstractAction {
 	public void qrCode() throws Exception {
 		// 
 		QrCode permanent = QrCode.permanent(3);
-		System.out.println(qrCodeApi.create(permanent));
+		System.out.println(api.qrCode().create(permanent));
 	}
 
 }

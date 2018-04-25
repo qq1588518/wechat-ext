@@ -30,7 +30,7 @@ public class CreateCommonMenuBar extends AbstractAction {
 		// 
 		MenuBar menuBar = new MenuBar();
 		menuBar.setButton(Lists.newArrayList(menu1, menu2, menu3));
-		ApiError apiError = menuApi.create(menuBar);
+		ApiError apiError = api.menu().create(menuBar);
 		System.out.println(apiError);
 	}
 

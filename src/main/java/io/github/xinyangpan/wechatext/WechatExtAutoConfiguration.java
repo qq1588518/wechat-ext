@@ -21,6 +21,7 @@ import com.google.common.collect.Lists;
 
 import io.github.xinyangpan.wechatext.api.AbstractApi;
 import io.github.xinyangpan.wechatext.api.AbstractBusinessApi;
+import io.github.xinyangpan.wechatext.api.Api;
 import io.github.xinyangpan.wechatext.api.CoreApi;
 import io.github.xinyangpan.wechatext.api.MenuApi;
 import io.github.xinyangpan.wechatext.api.MessageApi;
@@ -90,6 +91,18 @@ public class WechatExtAutoConfiguration {
 	// -----------------------------
 	// ----- API
 	// -----------------------------
+
+	@Bean
+	@ConditionalOnMissingBean
+	public Api api() {
+		Api api = new Api();
+		api.setCoreApi(coreApi());
+		api.setMenuApi(menuApi());
+		api.setMessageApi(messageApi());
+		api.setQrCodeApi(qrCodeApi());
+		api.setTagApi(tagApi());
+		return api;
+	}
 
 	@Bean
 	@ConditionalOnMissingBean
