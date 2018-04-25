@@ -1,5 +1,7 @@
 package io.github.xinyangpan.wechatext;
 
+import java.util.List;
+
 import org.apache.catalina.filters.RequestDumperFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -8,10 +10,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.google.common.collect.Lists;
 
 import io.github.xinyangpan.wechatext.api.AbstractApi;
 import io.github.xinyangpan.wechatext.api.AbstractBusinessApi;
@@ -45,7 +51,12 @@ public class WechatExtAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public RestTemplate restTemplate() {
-		RestTemplate restTemplate = new RestTemplate();
+		// exclude XML converter
+		List<HttpMessageConverter<?>> messageConverters = Lists.newArrayList();
+		messageConverters.add(new StringHttpMessageConverter());
+		messageConverters.add(new MappingJackson2HttpMessageConverter());
+		// 
+		RestTemplate restTemplate = new RestTemplate(messageConverters);
 		return restTemplate;
 	}
 

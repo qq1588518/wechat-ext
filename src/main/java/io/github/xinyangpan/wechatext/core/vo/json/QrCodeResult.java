@@ -9,7 +9,7 @@ public class QrCodeResult extends ApiError {
 
 	@Override
 	public String toString() {
-		return String.format("MenuId [ticket=%s, expireSecond=%s, errcode=%s, errmsg=%s]", ticket, expireSecond, errcode, errmsg);
+		return String.format("QrCodeResult [ticket=%s, expireSecond=%s, errcode=%s, errmsg=%s]", ticket, expireSecond, errcode, errmsg);
 	}
 
 	public String getTicket() {

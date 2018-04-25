@@ -18,4 +18,17 @@ public class QrCodeApi extends AbstractBusinessApi {
 		return qrCodeResult.throwExceptionIfError();
 	}
 
+	public QrCodeResult create(String qrCode) {
+		HttpUrl url = wechatExtService.commonBuilder()//
+			.addPathSegment("qrcode")//
+			.addPathSegment("create")//
+			.addQueryParameter("access_token", coreApi.currentAccessToken())//
+			.build();
+		// 
+		System.out.println(url.toString());
+		System.out.println(qrCode);
+		QrCodeResult qrCodeResult = restTemplate.postForObject(url.toString(), qrCode, QrCodeResult.class);
+		return qrCodeResult.throwExceptionIfError();
+	}
+
 }
