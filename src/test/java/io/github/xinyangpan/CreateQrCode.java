@@ -1,5 +1,8 @@
 package io.github.xinyangpan;
 
+import java.io.File;
+import java.nio.charset.Charset;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +12,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.io.CharSource;
+import com.google.common.io.Files;
 
 import io.github.xinyangpan.wechatext.WechatExtAutoConfiguration;
 import io.github.xinyangpan.wechatext.api.CoreApi;
@@ -18,7 +23,7 @@ import io.github.xinyangpan.wechatext.core.vo.json.QrCode;
 
 @RunWith(SpringRunner.class)
 @Import(WechatExtAutoConfiguration.class)
-public class CreateQrCode1 {
+public class CreateQrCode {
 	// 
 	@Autowired
 	protected ApplicationContext applicationContext;
@@ -33,15 +38,18 @@ public class CreateQrCode1 {
 
 	@Before
 	public void before() throws Exception {
+		CharSource charSource = Files.asCharSource(new File("app_secret.txt"), Charset.defaultCharset());
+		String appSecret = charSource.read();
+		System.out.println(appSecret);
 		wechatExtProperties.setAppId("wxad7f4e65a5154252");
-		wechatExtProperties.setAppSecret("");
+		wechatExtProperties.setAppSecret(appSecret);
 		System.out.println(coreApi.currentAccessToken());
 	}
 
 	@Test
 	public void qrCode() throws Exception {
 		// 
-		QrCode permanent = QrCode.permanent(10000);
+		QrCode permanent = QrCode.permanent(3);
 		System.out.println(qrCodeApi.create(permanent));
 	}
 
