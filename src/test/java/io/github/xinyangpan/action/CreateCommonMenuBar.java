@@ -21,7 +21,7 @@ public class CreateCommonMenuBar extends AbstractAction {
 		MenuButton menu2 = new MenuButton();
 		menu2.setName("我的物业");
 		menu2.setType("view");
-		menu2.setUrl("https://panxinyang.cn/service/myPropertyManager");
+		menu2.setUrl("https://panxinyang.cn/service/property");
 		// 
 		MenuButton menu3 = new MenuButton();
 		menu3.setName("员工登录");
